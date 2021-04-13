@@ -1,0 +1,20 @@
+import { useHistory, useLocation } from "react-router-dom";
+import { MiceAdapter } from "./mice-adapter-types";
+
+export const useQueryStringValue = <T>(name:string, adapter:MiceAdapter<T>)=>{
+  const {fromMice,toMice} = adapter;
+  const location = useLocation();
+    const history = useHistory();
+    const qs = new URLSearchParams(location.search);
+    const value: string | undefined = qs.get(name)||undefined;
+    const setValue: (value: string | undefined) => void = (nv) => { 
+      if(typeof nv === "undefined"){
+        qs.delete(name);
+      }else{
+        qs.set(name, nv);
+      }
+      qs.sort();
+      history.replace({...location, search:qs.toString()});
+    };
+    return [fromMice(value), (value:T|undefined)=>setValue(toMice(value))];
+}
