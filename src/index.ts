@@ -1,4 +1,4 @@
-export { useRouteParam } from "./hooks/use-route-param";
+export { useRouteValue } from "./hooks/use-route-value";
 export { useQueryStringValue } from "./hooks/use-query-string-value";
 export { boolMiceAdapter } from "./hooks/mice-adapter-bool";
 export { dateMiceAdapter } from "./hooks/mice-adapter-date";

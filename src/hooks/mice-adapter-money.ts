@@ -6,7 +6,7 @@ export const moneyMiceAdapter: MiceAdapter<number> = {
     if (typeof value === "undefined") {
       return undefined;
     }
-    var res = Number.parseFloat(value);
+    const res = Number.parseFloat(value);
     if (Number.isNaN(res)) {
       return undefined;
     }
