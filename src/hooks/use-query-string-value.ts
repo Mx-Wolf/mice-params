@@ -6,6 +6,7 @@ export type UriHook = <T>(name: string, adapter: MiceAdapter<T>, value: T | null
 
 export const useQueryStringValue: UriHook = <T>(name: string, adapter: MiceAdapter<T>, initialValue: T | null | undefined = undefined) => {
   const { fromMice, toMice } = adapter;
+  const [iv,setIv] = useState(toMice(initialValue));
   const history = useHistory();
   const originalqs = new URLSearchParams(history.location.search);
   const value: string | null | undefined = originalqs.get(name) || undefined;
@@ -13,20 +14,18 @@ export const useQueryStringValue: UriHook = <T>(name: string, adapter: MiceAdapt
     const nextqs = new URLSearchParams(history.location.search);
     if (typeof nv === "undefined" || nv === null) {
       nextqs.delete(name);
+      setIv(undefined);
     } else {
       nextqs.set(name, nv);
+      setIv(nv);
     }
     nextqs.sort();
     history.replace({ ...history.location, search: nextqs.toString() });
   }, [history, name]);
-  const [iv] = useState(value || toMice(initialValue));
   useEffect(() => {
-    if (
-      (typeof value === undefined || value === null)
-      && typeof iv !== "undefined"
-      && iv !== null) {
+    if (!value && !!iv) {
       setValue(iv);
     }
-  }, [iv, setValue])
+  }, [!iv, setValue,!value])
   return [fromMice(value), (value: T | null | undefined) => setValue(toMice(value))];
 }

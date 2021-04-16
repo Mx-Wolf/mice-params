@@ -28,7 +28,7 @@ export const useLocationEffect: LocationEffectHook = (action, locationNames) => 
   useEffect(() => {
     const p: Record<string, string> = {};
     for (let ix = 0; ix < deps.length / 2; ++ix) {
-      p[deps[ix]] = deps[1 + ix];
+      p[deps[2*ix]] = deps[1 + 2*ix];
     }
     return action(p);
   },

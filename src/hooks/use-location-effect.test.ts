@@ -51,5 +51,11 @@ describe("правило отбора зависимостей", () => {
     const result = computeDependencies(names, query, params);
     expect(result.length).toBe(2);
     expect(result[1]).toBe("73");
+  });
+  it("читае строку парами",()=>{
+    const query =new URLSearchParams("?bop=2021-04-16&bopDisabled=1&dateBal=2021-04-30&eop=2021-04-17");
+    const names =["bop","bopDisabled","dateBal","eop"];
+    const result = computeDependencies(names,query,{});
+    expect (result.length%2).toBe(0);
   })
 });
