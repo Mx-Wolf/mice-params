@@ -1,13 +1,12 @@
-import { useHistory, useLocation } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { MiceAdapter } from "./mice-adapter-types";
 
 export type UriHook = <T>(name: string, adapter: MiceAdapter<T>) => [value: T | undefined, setValue: (value: T | undefined) => void];
 
 export const useQueryStringValue: UriHook = <T>(name: string, adapter: MiceAdapter<T>) => {
   const { fromMice, toMice } = adapter;
-  const location = useLocation();
   const history = useHistory();
-  const qs = new URLSearchParams(location.search);
+  const qs = new URLSearchParams(history.location.search);
   const value: string | undefined = qs.get(name) || undefined;
   const setValue: (value: string | undefined) => void = (nv) => {
     if (typeof nv === "undefined") {
@@ -16,7 +15,7 @@ export const useQueryStringValue: UriHook = <T>(name: string, adapter: MiceAdapt
       qs.set(name, nv);
     }
     qs.sort();
-    history.replace({ ...location, search: qs.toString() });
+    history.replace({ ...history.location, search: qs.toString() });
   };
   return [fromMice(value), (value: T | undefined) => setValue(toMice(value))];
 }

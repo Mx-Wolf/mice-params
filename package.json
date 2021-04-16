@@ -1,6 +1,6 @@
 {
   "name": "mice-params",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "description": "",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
@@ -21,6 +21,7 @@
   "license": "MIT",
   "devDependencies": {
     "@testing-library/react": "^11.2.6",
+    "@testing-library/react-hooks": "^5.1.1",
     "@types/jest": "^26.0.22",
     "@types/react": "^17.0.3",
     "@types/react-router-dom": "^5.1.7",
