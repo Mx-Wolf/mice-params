@@ -1,11 +1,15 @@
 {
   "name": "mice-params",
-  "version": "1.0.4",
+  "version": "1.0.13",
   "description": "",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/esm/index.d.ts",
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Mx-Wolf/mice-params.git"
+  },
   "files": [
     "/dist"
   ],

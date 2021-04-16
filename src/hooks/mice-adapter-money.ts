@@ -3,7 +3,7 @@ import { MiceAdapter } from "./mice-adapter-types";
 const nf = new Intl.NumberFormat("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 export const moneyMiceAdapter: MiceAdapter<number> = {
   fromMice: (value) => {
-    if (typeof value === "undefined") {
+    if (typeof value === "undefined" || value === null) {
       return undefined;
     }
     const res = Number.parseFloat(value);
@@ -12,8 +12,8 @@ export const moneyMiceAdapter: MiceAdapter<number> = {
     }
     return res;
   },
-  toMice:(value)=>{
-    if(typeof value ==="undefined"){
+  toMice: (value) => {
+    if (typeof value === "undefined" || value === null) {
       return undefined;
     }
     return nf.format(value);
