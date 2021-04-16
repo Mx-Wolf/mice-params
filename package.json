@@ -1,11 +1,15 @@
 {
   "name": "mice-params",
-  "version": "1.0.0",
+  "version": "1.0.17",
   "description": "",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/esm/index.d.ts",
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Mx-Wolf/mice-params.git"
+  },
   "files": [
     "/dist"
   ],
@@ -20,6 +24,8 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
+    "@testing-library/react": "^11.2.6",
+    "@testing-library/react-hooks": "^5.1.1",
     "@types/jest": "^26.0.22",
     "@types/react": "^17.0.3",
     "@types/react-router-dom": "^5.1.7",

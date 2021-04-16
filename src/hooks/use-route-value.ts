@@ -1,14 +1,14 @@
 import { generatePath, useHistory, useLocation, useParams, useRouteMatch } from "react-router-dom";
 import { MiceAdapter } from "./mice-adapter-types";
 
-type RouteHook = <T extends Record<string, string> = Record<string, string>>(name: keyof T, adapter: MiceAdapter<T>) => [value: T | undefined, setValue: (value: T | undefined) => void];
+type RouteHook = <V, T extends Record<string, string> = Record<string, string>>(name: keyof T, adapter: MiceAdapter<V>) => [value: V | null | undefined, setValue: (value: V | null | undefined) => void];
 
-export const useRouteValue: RouteHook = <T extends Record<string, string> = Record<string, string>>(
+export const useRouteValue: RouteHook = <V, T extends Record<string, string> = Record<string, string>>(
   name: keyof T,
-  adapter: MiceAdapter<T>
+  adapter: MiceAdapter<V>
 ): [
-    value: T | undefined,
-    setValue: (value: T | undefined) => void
+    value: V | null | undefined,
+    setValue: (value: V | null | undefined) => void
   ] => {
   const { toMice, fromMice } = adapter;
   const { [name]: value, ...other } = useParams<T>();
@@ -16,11 +16,11 @@ export const useRouteValue: RouteHook = <T extends Record<string, string> = Reco
   const location = useLocation<T>();
   const match = useRouteMatch();
   const history = useHistory();
-  const setValue = (nv: string | undefined) => {
-    const np = typeof nv === "undefined" ? other : { ...other, [name]: nv };
+  const setValue = (nv: string | null | undefined) => {
+    const np = typeof nv === "undefined" || nv === null ? other : { ...other, [name]: nv };
     const pathname = generatePath(match.path, np);
     const nloc = { ...location, pathname };
     history.push(nloc);
   };
-  return [fromMice(value as unknown as string), (value: T | undefined) => setValue(toMice(value))];
+  return [fromMice(value as unknown as string), (value: V | null | undefined) => setValue(toMice(value))];
 }

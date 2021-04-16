@@ -3,4 +3,11 @@ export { useQueryStringValue } from "./hooks/use-query-string-value";
 export { boolMiceAdapter } from "./hooks/mice-adapter-bool";
 export { dateMiceAdapter } from "./hooks/mice-adapter-date";
 export { moneyMiceAdapter } from "./hooks/mice-adapter-money";
-export { stringToMice } from "./hooks/mice-adapter-string";
+export { stringMiceAdapter } from "./hooks/mice-adapter-string";
+export { useLocationEffect } from "./hooks/use-location-effect";
+export { useSmartSegment } from "./hooks/use-smart-segment-effect";
+export { createSmartRoute } from "./components/create-smart-route";
+export { SegmentOptions } from "./components/segment-options"
+export { SmartRoute } from "./components/smart-route";
+export { SmartSegment } from "./components/smart-segment";
+export { SmartSegmentProps } from "./components/smart-segment-props";
