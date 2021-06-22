@@ -64,13 +64,18 @@ export const createFactory = (history: ReturnType<typeof useHistory>): CreateFac
       () => createSetValue(name),
       [name],
     );
-    const [stateValue, setStateValue] = useState<string | null | undefined>(initialValue);
+    const [stateValue, setStateValue] = useState<string | null | undefined>(() => {
+      const firstParams = new URLSearchParams(history.location.search);      
+      return firstParams.has(name) ? firstParams.get(name) : initialValue;
+    });
     useEffect(() => {
+      let trackValue = stateValue;
       const unlisten = history.listen((state) => {
         const { search } = state;
         const params = new URLSearchParams(search);
         const value = urlToString(params.get(name));
-        if (value !== stateValue) {
+        if (value !== trackValue) {
+          trackValue = value;
           setStateValue(value)
         }
       })
