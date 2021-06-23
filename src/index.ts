@@ -1,5 +1,4 @@
 export { useRouteValue } from "./hooks/use-route-value";
-export { useQueryStringValue } from "./hooks/use-query-string-value";
 export { boolMiceAdapter } from "./hooks/mice-adapter-bool";
 export { dateMiceAdapter } from "./hooks/mice-adapter-date";
 export { moneyMiceAdapter } from "./hooks/mice-adapter-money";
@@ -11,3 +10,4 @@ export { SegmentOptions } from "./components/segment-options"
 export { SmartRoute } from "./components/smart-route";
 export { SmartSegment } from "./components/smart-segment";
 export { SmartSegmentProps } from "./components/smart-segment-props";
+export { pluginSearchValues } from "./utils/plugin-search-values";
