@@ -1,3 +1,4 @@
+import { numberMiceAdapter } from "..";
 import { boolMiceAdapter } from "./mice-adapter-bool";
 import { dateMiceAdapter } from "./mice-adapter-date";
 import { moneyMiceAdapter } from "./mice-adapter-money";
@@ -7,37 +8,51 @@ import { useAdaptedSearchParam } from "./use-adapter-search-param";
 
 export const useBoolean = (
   name: string,
-  initialValue?: Relaxed<boolean>,
-): QueryStringBinding<boolean> => (
-  useAdaptedSearchParam(name, initialValue, boolMiceAdapter)
-);
+  initialValue?: string | Relaxed<boolean>,
+): QueryStringBinding<boolean> => {
+  const iv = typeof initialValue === "string" ? boolMiceAdapter.fromMice(initialValue) : initialValue;
+  return useAdaptedSearchParam(name, iv, boolMiceAdapter)
+};
 export const useDate = (
   name: string,
-  initialValue?: Relaxed<Date>,
-): QueryStringBinding<Date> => (
-  useAdaptedSearchParam(
+  initialValue?: string | Relaxed<Date>,
+): QueryStringBinding<Date> => {
+  const iv = typeof initialValue === "string" ? dateMiceAdapter.fromMice(initialValue) : initialValue;
+  return useAdaptedSearchParam(
     name,
-    initialValue,
+    iv,
     dateMiceAdapter,
   )
-);
+};
 export const useNumber = (
   name: string,
-  initialValue?: Relaxed<number>,
-): QueryStringBinding<number> => (
-  useAdaptedSearchParam(
+  initialValue?: string | Relaxed<number>,
+): QueryStringBinding<number> => {
+  const iv = typeof initialValue === "string" ? numberMiceAdapter.fromMice(initialValue) : initialValue;
+  return useAdaptedSearchParam(
     name,
-    initialValue,
+    iv,
+    numberMiceAdapter,
+  )
+};
+export const useMoney = (
+  name: string,
+  initialValue?: string | Relaxed<number>,
+): QueryStringBinding<number> => {
+  const iv = typeof initialValue === "string" ? moneyMiceAdapter.fromMice(initialValue) : initialValue;
+  return useAdaptedSearchParam(
+    name,
+    iv,
     moneyMiceAdapter,
   )
-);
+};
 export const useString = (
   name: string,
   initialValue?: Relaxed<string>,
-): QueryStringBinding<string> => (
-  useAdaptedSearchParam(
+): QueryStringBinding<string> => {
+  return useAdaptedSearchParam(
     name,
     initialValue,
     stringMiceAdapter,
   )
-);
+};
