@@ -19,5 +19,26 @@ export const dateMiceAdapter: MiceAdapter<Date> = {
       return undefined;
     }
     return `${value.getFullYear()}-${lz(+1 + value.getMonth())}-${lz(value.getDate())}`
+  },
+  fromInit: (value)=>{
+    if(typeof value=== "undefined"){
+      return undefined;
+    }
+    if(value === null){
+      return null;
+    }
+    if(typeof value === "boolean"){
+      return undefined;
+    }
+    if(typeof value === "string"){
+      dateMiceAdapter.fromMice(value);
+    }
+    if(typeof value === "number"){
+      const d = new Date();
+      d.setHours(0,0,0,0);
+      d.setDate(d.getDate()+value);
+      return d;
+    }
+    return undefined;
   }
 }

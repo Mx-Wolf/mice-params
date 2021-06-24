@@ -13,9 +13,11 @@ describe("поведение алгоритма хранения состоян�
   const val = "v";
   const fm = jest.fn((v: string) => v);
   const tm = jest.fn((v: string) => v);
+  const im = jest.fn((v: string) => v);
   const adapter: MiceAdapter<string> = {
     fromMice: fm as FromMice<string>,
     toMice: tm as ToMice<string>,
+    fromInit: im as MiceAdapter<string>["fromInit"]
   };
 
   describe("когда имя параметра присутствует в строке запроса", () => {
@@ -68,8 +70,8 @@ describe("поведение алгоритма хранения состоян�
       const [, setValue] = result.result.current;
       await act(() => Promise.resolve(setValue(newValue)));
       expect(result.result.current[0]).toBe(newValue);
-      await act(()=>Promise.resolve(history.push(`/test?${name}=${newValue}&other=ov`)));
-      expect(result.result.current[0]).toBe(newValue);      
+      await act(() => Promise.resolve(history.push(`/test?${name}=${newValue}&other=ov`)));
+      expect(result.result.current[0]).toBe(newValue);
     })
 
   })

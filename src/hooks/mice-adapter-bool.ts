@@ -25,4 +25,19 @@ export const boolMiceAdapter: MiceAdapter<boolean> = {
     }
     return value?"1":"0";
   },
+  fromInit: (value)=>{
+    if(typeof value === "undefined"){
+      return undefined;
+    }
+    if(value === null){
+      return null;
+    }
+    if(typeof value === "boolean"){
+      return value;
+    }
+    if(typeof value === "string"){
+      return boolMiceAdapter.fromMice(value);
+    }
+    return !!value;
+  }
 }
