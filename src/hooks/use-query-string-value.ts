@@ -1,58 +1,60 @@
-import { numberMiceAdapter } from "..";
+import { numberMiceAdapter } from "./mice-adapter-number";
 import { boolMiceAdapter } from "./mice-adapter-bool";
 import { dateMiceAdapter } from "./mice-adapter-date";
 import { moneyMiceAdapter } from "./mice-adapter-money";
 import { stringMiceAdapter } from "./mice-adapter-string";
 import { QueryStringBinding, Relaxed } from "./type-defs";
 import { useAdaptedSearchParam } from "./use-adapter-search-param";
+import { InitValueType } from "./mice-adapter-types";
+
 
 export const useBoolean = (
   name: string,
-  initialValue?: string | Relaxed<boolean>,
+  initialValue?: InitValueType,
 ): QueryStringBinding<boolean> => {
-  const iv = typeof initialValue === "string" ? boolMiceAdapter.fromMice(initialValue) : initialValue;
-  return useAdaptedSearchParam(name, iv, boolMiceAdapter)
+  const a = boolMiceAdapter;
+  return useAdaptedSearchParam(name, a.fromInit(initialValue), a)
 };
 export const useDate = (
   name: string,
-  initialValue?: string | Relaxed<Date>,
+  initialValue?: InitValueType | Relaxed<Date>,
 ): QueryStringBinding<Date> => {
-  const iv = typeof initialValue === "string" ? dateMiceAdapter.fromMice(initialValue) : initialValue;
+  const a = dateMiceAdapter;
   return useAdaptedSearchParam(
     name,
-    iv,
-    dateMiceAdapter,
-  )
+    initialValue instanceof Date? initialValue: a.fromInit(initialValue), 
+    a)
 };
 export const useNumber = (
   name: string,
-  initialValue?: string | Relaxed<number>,
+  initialValue?: InitValueType,
 ): QueryStringBinding<number> => {
-  const iv = typeof initialValue === "string" ? numberMiceAdapter.fromMice(initialValue) : initialValue;
+  const a = numberMiceAdapter;
   return useAdaptedSearchParam(
     name,
-    iv,
-    numberMiceAdapter,
+    a.fromInit(initialValue),
+    a,
   )
 };
 export const useMoney = (
   name: string,
   initialValue?: string | Relaxed<number>,
 ): QueryStringBinding<number> => {
-  const iv = typeof initialValue === "string" ? moneyMiceAdapter.fromMice(initialValue) : initialValue;
+  const a = moneyMiceAdapter;
   return useAdaptedSearchParam(
     name,
-    iv,
-    moneyMiceAdapter,
+    a.fromInit(initialValue),
+    a,
   )
 };
 export const useString = (
   name: string,
-  initialValue?: Relaxed<string>,
+  initialValue?: InitValueType,
 ): QueryStringBinding<string> => {
+  const a = stringMiceAdapter;
   return useAdaptedSearchParam(
     name,
-    initialValue,
-    stringMiceAdapter,
+    a.fromInit(initialValue),
+    a,
   )
 };

@@ -6,9 +6,11 @@ beforeEach(() => jest.clearAllMocks());
 describe("Привила использования начального значения привязки к строке запроса", () => {
   const fm = jest.fn((v: string) => v);
   const tm = jest.fn((v: string) => v);
+  const im = jest.fn((v: string)=>v);
   const a: MiceAdapter<string> = {
     fromMice: fm as FromMice<string>,
     toMice: tm as ToMice<string>,
+    fromInit: im as MiceAdapter<string>["fromInit"],
   }
   describe("Когда имя параметра присутствует в строке запроса", () => {
     const name = "a";
