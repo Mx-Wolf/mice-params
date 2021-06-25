@@ -1,12 +1,12 @@
-import { Relaxed } from "./type-defs";
+import { PrimitiveType, Relaxed } from "./type-defs";
 
-export type ToMice<T> = (value:Relaxed<T>) => Relaxed<string>;
+export type ToMice<T> = (value: Relaxed<T>) => Relaxed<string>;
 export type FromMice<T> = (value: Relaxed<string>) => Relaxed<T>;
 
-export type InitValueType = boolean | number | string | null | undefined;
+export type InitValueType = Relaxed<PrimitiveType>;
 
 export interface MiceAdapter<T> {
-  toMice: ToMice<T>;
+  toMice: ToMice<PrimitiveType | T>;
   fromMice: FromMice<T>;
-  fromInit: (value:InitValueType)=>Relaxed<T>
+  fromInit: (value: InitValueType) => Relaxed<T>
 }

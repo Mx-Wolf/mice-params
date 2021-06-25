@@ -4,6 +4,7 @@ import { useAdaptedSearchParam } from "./use-adapter-search-param";
 import { MemoryRouter, Router } from "react-router";
 import { SpecialEscapedStrings } from "../consts/special-escaped-strings";
 import { createMemoryHistory } from "history";
+import { PrimitiveType } from "./type-defs";
 
 beforeEach(() => jest.clearAllMocks());
 
@@ -16,7 +17,7 @@ describe("поведение алгоритма хранения состоян�
   const im = jest.fn((v: string) => v);
   const adapter: MiceAdapter<string> = {
     fromMice: fm as FromMice<string>,
-    toMice: tm as ToMice<string>,
+    toMice: tm as ToMice<PrimitiveType>,
     fromInit: im as MiceAdapter<string>["fromInit"]
   };
 

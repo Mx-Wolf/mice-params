@@ -1,5 +1,6 @@
 import { computeFirstStateValue } from "./compute-first-state-value";
 import { FromMice, MiceAdapter, ToMice } from "./mice-adapter-types";
+import { PrimitiveType } from "./type-defs";
 
 beforeEach(() => jest.clearAllMocks());
 
@@ -9,7 +10,7 @@ describe("Привила использования начального зна�
   const im = jest.fn((v: string)=>v);
   const a: MiceAdapter<string> = {
     fromMice: fm as FromMice<string>,
-    toMice: tm as ToMice<string>,
+    toMice: tm as ToMice<PrimitiveType>,
     fromInit: im as MiceAdapter<string>["fromInit"],
   }
   describe("Когда имя параметра присутствует в строке запроса", () => {
