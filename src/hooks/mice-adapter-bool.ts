@@ -1,3 +1,4 @@
+import { convertPrimitiveTypeToMice } from "../utils/primitive-type-to-mice";
 import { MiceAdapter } from "./mice-adapter-types";
 
 export const boolMiceAdapter: MiceAdapter<boolean> = {
@@ -16,28 +17,9 @@ export const boolMiceAdapter: MiceAdapter<boolean> = {
     }
     return !!value;
   },
-  toMice: (value) => {
-    if(typeof value === "undefined"){
-      return undefined;
-    }
-    if(value === null){
-      return null;
-    }
-    return value?"1":"0";
-  },
+  toMice: convertPrimitiveTypeToMice,
   fromInit: (value)=>{
-    if(typeof value === "undefined"){
-      return undefined;
-    }
-    if(value === null){
-      return null;
-    }
-    if(typeof value === "boolean"){
-      return value;
-    }
-    if(typeof value === "string"){
-      return boolMiceAdapter.fromMice(value);
-    }
-    return !!value;
+    const vs = convertPrimitiveTypeToMice(value);
+    return boolMiceAdapter.fromMice(vs);
   }
 }

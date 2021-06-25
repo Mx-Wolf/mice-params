@@ -1,26 +1,8 @@
-import { boolMiceAdapter } from "./mice-adapter-bool";
-import { numberMiceAdapter } from "./mice-adapter-number";
+import { convertPrimitiveTypeToMice } from "../utils/primitive-type-to-mice";
 import { MiceAdapter } from "./mice-adapter-types";
 
 export const stringMiceAdapter: MiceAdapter<string> = {
-  toMice: (value) => value,
+  toMice: convertPrimitiveTypeToMice,
   fromMice: (value) => value,
-  fromInit: (value) => {
-    if (typeof value === "undefined") {
-      return undefined;
-    }
-    if (value === null) {
-      return null;
-    }
-    if (typeof value === "string") {
-      return value;
-    }
-    if (typeof value === "boolean") {
-      return boolMiceAdapter.toMice(value);
-    }
-    if(typeof value === "number"){
-      return numberMiceAdapter.toMice(value);
-    }
-    return undefined;
-  }
+  fromInit: convertPrimitiveTypeToMice,
 }

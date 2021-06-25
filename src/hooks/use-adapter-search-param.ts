@@ -4,13 +4,13 @@ import { computeFirstStateValue } from "./compute-first-state-value";
 import { replaceHistoryParam } from "./create-set-value-on-query";
 import { getHistoryParam } from "./get-history-param";
 import { MiceAdapter } from "./mice-adapter-types";
-import { Relaxed } from "./type-defs";
+import { PrimitiveType, Relaxed } from "./type-defs";
 
 export const useAdaptedSearchParam = <T>(
   name: string,
-  initialValue: T | null | undefined,
+  initialValue: Relaxed<PrimitiveType>,
   adapter: MiceAdapter<T>,
-): readonly [Relaxed<T>, (value: Relaxed<T>) => void] => {
+): readonly [Relaxed<T>, (value: Relaxed<PrimitiveType>) => void] => {
 
   const history = useHistory();
 
@@ -39,7 +39,7 @@ export const useAdaptedSearchParam = <T>(
   }, [name]);
 
   const setValue = useCallback(
-    (value: Relaxed<T>) => replaceHistoryParam(
+    (value: Relaxed<PrimitiveType>) => replaceHistoryParam(
       history,
       name,
       adapter.toMice(value),
