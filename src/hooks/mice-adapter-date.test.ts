@@ -3,6 +3,9 @@ import { dateMiceAdapter } from "./mice-adapter-date";
 describe("адаптер даты",()=>{
   it("использует локальные значения года, месяца и дня при формировании строки",()=>{
     const d = new Date("2021-03-20T23:00:00.000Z");
+    const v1 = dateMiceAdapter.toMice(d);
+    expect(v1).toBeDefined();
+    expect(typeof v1 === "string").toBe(true);    
     const [year, month, date] = (dateMiceAdapter.toMice(d) as string).split("-");
     
     expect(Number(year)).toBe(d.getFullYear());

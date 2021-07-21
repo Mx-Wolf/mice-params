@@ -19,11 +19,11 @@ const asPrimitive = (initialValue: unknown): InitValueType => {
 
 export const useAdaptedSearchParam = <T>(
   name: string,
-  initialValue: T | null | undefined,
+  initialValue: Relaxed<T>,
   adapter: MiceAdapter<T>,
 ): readonly [Relaxed<T>, (value: Relaxed<T>) => void] => {
   if (name === EMPTY_NAME_TO_SWITCH_OFF) {
-    return [adapter.fromInit(asPrimitive(initialValue)), noop];
+    return [adapter.fromInit(asPrimitive(initialValue)), noop] as const;
   }
   const history = useHistory();
 
@@ -52,7 +52,7 @@ export const useAdaptedSearchParam = <T>(
   }, [name]);
 
   const setValue = useCallback(
-    (value: Relaxed<T>) => replaceHistoryParam(
+    (value: Relaxed<PrimitiveType>) => replaceHistoryParam(
       history,
       name,
       adapter.toMice(value),

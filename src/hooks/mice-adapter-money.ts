@@ -1,3 +1,4 @@
+import { convertPrimitiveTypeToMice } from "../utils/primitive-type-to-mice";
 import { MiceAdapter } from "./mice-adapter-types";
 
 const nf = new Intl.NumberFormat("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
@@ -6,38 +7,24 @@ export const moneyMiceAdapter: MiceAdapter<number> = {
     if (typeof value === "undefined") {
       return undefined;
     }
-    if(value === null){
+    if (value === null) {
       return null;
     }
     const res = Number.parseFloat(value);
     if (!Number.isFinite(res)) {
       return undefined;
     }
-    return res;
+    return Math.round((100 * res)) / 100;
   },
   toMice: (value) => {
-    if (typeof value === "undefined" || value === null) {
-      return undefined;
-    }
-    return nf.format(value);
+    const vs = convertPrimitiveTypeToMice(value);
+    const v1 = moneyMiceAdapter.fromMice(vs);
+    if (typeof v1 === "undefined") { return undefined; }
+    if (v1 === null) { return null; }
+    return nf.format(v1);
   },
-  fromInit: (value)=>{
-    if(typeof value === "undefined"){
-      return undefined;
-    }
-    if(value === null){
-      return null;
-    }
-    if(typeof value === "boolean"){
-      return value?1:0;
-    }
-    if(typeof value ==="number"){
-      return value;
-    }
-    const v = Number.parseFloat(value);
-    if(Number.isFinite(v)){
-      return v;
-    }
-    return undefined;
+  fromInit: (value) => {
+    const vs = convertPrimitiveTypeToMice(value);
+    return moneyMiceAdapter.fromMice(vs);
   }
 }
