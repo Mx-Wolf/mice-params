@@ -5,7 +5,7 @@ import { computeFirstStateValue } from "./compute-first-state-value";
 import { replaceHistoryParam } from "./create-set-value-on-query";
 import { getHistoryParam } from "./get-history-param";
 import { InitValueType, MiceAdapter } from "./mice-adapter-types";
-import { Relaxed } from "./type-defs";
+import { PrimitiveType, Relaxed } from "./type-defs";
 
 const asPrimitive = (initialValue: unknown): InitValueType => {
   switch (typeof initialValue) {
@@ -19,9 +19,9 @@ const asPrimitive = (initialValue: unknown): InitValueType => {
 
 export const useAdaptedSearchParam = <T>(
   name: string,
-  initialValue: Relaxed<T>,
+  initialValue: Relaxed<PrimitiveType>,
   adapter: MiceAdapter<T>,
-): readonly [Relaxed<T>, (value: Relaxed<T>) => void] => {
+): readonly [Relaxed<T>, (value: Relaxed<PrimitiveType>) => void] => {
   if (name === EMPTY_NAME_TO_SWITCH_OFF) {
     return [adapter.fromInit(asPrimitive(initialValue)), noop] as const;
   }
