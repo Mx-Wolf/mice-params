@@ -5,7 +5,10 @@ export { stringMiceAdapter } from "./hooks/mice-adapter-string";
 export { numberMiceAdapter } from "./hooks/mice-adapter-number";
 export { useLocationEffect } from "./hooks/use-location-effect";
 export { pluginSearchValues } from "./utils/plugin-search-values";
-export { getHistoryParam } from "./hooks/get-history-param";
+export {
+  getHistoryParam,
+  getAllParams,
+} from "./hooks/get-history-param";
 export {
   useBoolean,
   useDate,

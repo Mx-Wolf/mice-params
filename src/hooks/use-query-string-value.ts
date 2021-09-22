@@ -7,7 +7,6 @@ import { QueryStringBinding, Relaxed } from "./type-defs";
 import { useAdaptedSearchParam } from "./use-adapter-search-param";
 import { InitValueType } from "./mice-adapter-types";
 
-
 export const useBoolean = (
   name: string,
   initialValue?: InitValueType,
@@ -50,7 +49,7 @@ export const useMoney = (
 export const useString = (
   name: string,
   initialValue?: InitValueType,
-): QueryStringBinding<string> => {
+): QueryStringBinding<string> => {  
   const a = stringMiceAdapter;
   return useAdaptedSearchParam(
     name,
